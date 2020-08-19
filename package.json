@@ -2,7 +2,7 @@
   "name": "tiling-game-cli",
   "version": "1.0.0",
   "description": "A CLI version of Azul",
-  "main": "game.js",
+  "main": "game.ts",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage"
