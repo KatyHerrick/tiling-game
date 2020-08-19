@@ -1,0 +1,22 @@
+{
+  "name": "tiling-game-cli",
+  "version": "1.0.0",
+  "description": "A CLI version of Azul",
+  "main": "game.js",
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "jest": "^26.4.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "babel-jest": "^26.3.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
