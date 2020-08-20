@@ -1,14 +1,6 @@
 import * as shuffle from 'lodash/shuffle';
 
-const COLORS = ['red', 'yellow', 'green', 'blue', 'white'];
-
-class Tile {
-	color: string;
-
-	constructor(color: string) {
-		this.color = color;
-	}
-}
+const COLORS = ['blue', 'yellow', 'red', 'black', 'white'];
 
 class GameTiles {
 	inBag: Array<Tile>;
@@ -44,6 +36,14 @@ class GameTiles {
 		this.inBag.push(...shuffle(this.discarded));
 	};
 
+}
+
+class Tile {
+	color: string;
+
+	constructor(color: string) {
+		this.color = color;
+	}
 }
 
 export { Tile, GameTiles };
