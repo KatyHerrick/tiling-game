@@ -53,6 +53,10 @@ class WallRow {
 			}
 		}
 	}
+
+	showBuiltTiles() {
+		return this.tiles.filter(tile => tile.isBuilt);
+	}
 }
 
 class WallTile {
@@ -69,4 +73,4 @@ class WallTile {
 	}
 }
 
-export { WallTile, WallRow, Wall };
+export { WallTile, WallRow, Wall, FIRST_ROW_PATTERN };

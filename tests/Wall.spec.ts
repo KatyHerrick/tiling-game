@@ -1,6 +1,4 @@
-import { WallTile, WallRow, Wall } from '../objects/Wall';
-
-const FIRST_ROW_PATTERN = ['blue', 'yellow', 'red', 'black', 'white'];
+import { Wall, WallRow, WallTile, FIRST_ROW_PATTERN } from '../objects/Wall';
 
 describe('Wall', function() {
   it('has 5 rows', function() {
@@ -41,10 +39,18 @@ describe('WallRow', function() {
     expect(row.tiles[0].isBuilt).toBe(true);
   });
 
+  it('shows built tiles', function() {
+    const row = new WallRow(FIRST_ROW_PATTERN);
+    row.build('red');
+    row.build('blue');
+    const builtTiles = row.showBuiltTiles();
+    expect(builtTiles.length).toBe(2);
+  });
+
   it('does not build a tile for an invalid color', function() {
   	const row = new WallRow(FIRST_ROW_PATTERN);
   	row.build('invalidColor');
-  	const builtTiles = row.tiles.filter(tile => tile.isBuilt);
+    const builtTiles = row.showBuiltTiles();
     expect(builtTiles.length).toBe(0);
   });
 });
