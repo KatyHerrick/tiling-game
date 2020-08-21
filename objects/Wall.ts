@@ -1,14 +1,14 @@
 const FIRST_ROW_PATTERN = ['blue', 'yellow', 'red', 'black', 'white'];
 
 class Wall {
-	rows: Array<WallRow>;
+	rows: WallRow[];
 
 	constructor() {
 		this.rows = this.initializeRows();
 	}
 
 	initializeRows() {
-		let rowPattern = FIRST_ROW_PATTERN;
+		const rowPattern = FIRST_ROW_PATTERN;
 		const rows = [];
 		for (let i = 0; i < 5; i++) {
 			rows.push(new WallRow(rowPattern));
@@ -23,23 +23,23 @@ class Wall {
 	}
 
 	showPattern() {
-  	const pattern = [];
-  	for (let row of this.rows) {
-    	pattern.push(row.tiles.map(tile => tile.color));
-  	}
-  	return pattern;
+		const pattern = [];
+		for (const row of this.rows) {
+			pattern.push(row.tiles.map(tile => tile.color));
+		}
+		return pattern;
 	}
 }
 
 class WallRow {
-	tiles: Array<WallTile>;
+	tiles: WallTile[];
 
-	constructor(pattern: Array<string>) {
+	constructor(pattern: string[]) {
 		this.tiles = this.initializeTiles(pattern);
 	}
 
-	initializeTiles(pattern: Array<string>) {
-		let tiles = [];
+	initializeTiles(pattern: string[]) {
+		const tiles = [];
 		for (let i = 0; i < 5; i++) {
 			tiles.push(new WallTile(pattern[i]));
 		}
@@ -47,7 +47,7 @@ class WallRow {
 	}
 
 	build(color: string) {
-		for (let tile of this.tiles) {
+		for (const tile of this.tiles) {
 			if (tile.color === color) {
 				tile.build();
 			}

@@ -1,13 +1,13 @@
 import { Tile } from './GameTiles';
 
 class FactoryDisplay {
-	tiles: Array<Tile>;
+	tiles: Tile[];
 
 	constructor() {
 		this.tiles = [];
 	}
 
-	deal(tiles: Array<Tile>) {
+	deal(tiles: Tile[]) {
 		this.tiles.push(...tiles);
 	}
 
@@ -34,7 +34,7 @@ class TableCenter extends FactoryDisplay {
 		this.tiles.push(new Tile('firstPlayerToken'));
 	}
 
-	add(tiles: Array<Tile>) {
+	add(tiles: Tile[]) {
 		this.tiles.push(...tiles);
 	}
 

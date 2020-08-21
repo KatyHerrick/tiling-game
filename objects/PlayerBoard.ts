@@ -23,7 +23,7 @@ class PlayerBoard {
 		return forPlayer;
 	}
 
-	moveToStagingArea(tiles: Array<Tile>, row: number) {
+	moveToStagingArea(tiles: Tile[], row: number) {
 		this.stagingArea.add(tiles, row, this.wall);
 	}
 }

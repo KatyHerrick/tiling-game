@@ -3,8 +3,8 @@ import * as shuffle from 'lodash/shuffle';
 const COLORS = ['blue', 'yellow', 'red', 'black', 'white'];
 
 class GameTiles {
-	inBag: Array<Tile>;
-	discarded: Array<Tile>;
+	inBag: Tile[];
+	discarded: Tile[];
 
 	constructor() {
 		this.inBag = this.initializeBag();
@@ -13,7 +13,7 @@ class GameTiles {
 
 	initializeBag() {
 		const tiles = [];
-		for (let color of COLORS) {
+		for (const color of COLORS) {
 			for (let i = 0; i < 20; i++) {
 				tiles.push(new Tile(color));
 			}
@@ -28,7 +28,7 @@ class GameTiles {
 		return this.inBag.splice(0, numTiles);
 	}
 
-	discard(tiles: Array<Tile>) {
+	discard(tiles: Tile[]) {
 		this.discarded.push(...tiles);
 	}
 

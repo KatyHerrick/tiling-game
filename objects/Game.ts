@@ -3,9 +3,9 @@ import { Tile, GameTiles } from './GameTiles';
 import { FactoryDisplay, TableCenter } from './FactoryDisplay';
 
 class Game {
-	players: Array<PlayerBoard>;
+	players: PlayerBoard[];
 	gameTiles: GameTiles;
-	factoryDisplays: Array<FactoryDisplay>;
+	factoryDisplays: FactoryDisplay[];
 	tableCenter: TableCenter;
 
 	constructor(numPlayers: number) {
@@ -18,7 +18,7 @@ class Game {
 	initializePlayers(numPlayers: number) {
 		const players = []
 		for (let i = 0; i < numPlayers; i++) {
-			players.push(new PlayerBoard);
+			players.push(new PlayerBoard());
 		}
 		return players;
 	}
@@ -27,7 +27,7 @@ class Game {
 		const numDisplays = (numPlayers * 2) + 1;
 		const displays = [];
 		for (let i = 0; i < numDisplays; i++) {
-			displays.push(new FactoryDisplay);
+			displays.push(new FactoryDisplay());
 		}
 		return displays;
 	}

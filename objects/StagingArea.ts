@@ -2,7 +2,7 @@ import { Tile } from './GameTiles';
 import { Wall, WallRow } from './Wall';
 
 class StagingArea {
-	rows: Array<StagingAreaRow>;
+	rows: StagingAreaRow[];
 
 	constructor() {
 		this.rows = this.initializeRows();
@@ -17,12 +17,12 @@ class StagingArea {
 	}
 
 	// TODO: Capture invalid responses from StagingAreaRow
-	add(tiles: Array<Tile>, rowIndex: number, wall: Wall) {
+	add(tiles: Tile[], rowIndex: number, wall: Wall) {
 		this.rows[rowIndex].add(tiles, wall.rows[rowIndex]);
 	}
 
 	reset() {
-		for (let row of this.rows) {
+		for (const row of this.rows) {
 			row.reset();
 		}
 	}
@@ -30,7 +30,7 @@ class StagingArea {
 }
 
 class StagingAreaRow {
-	tiles: Array<Tile>;
+	tiles: Tile[];
 	maxLength: number;
 
 	constructor(maxLength: number) {
@@ -38,7 +38,7 @@ class StagingAreaRow {
 		this.maxLength = maxLength;
 	}
 
-	add(tiles: Array<Tile>, wallRow: WallRow) {
+	add(tiles: Tile[], wallRow: WallRow) {
 		if (this.willOverflow(tiles)) {
 			return 'ERROR: Overflow!'
 		}
@@ -52,17 +52,17 @@ class StagingAreaRow {
 		this.tiles.push(...tiles);
 	}
 
-	doesNotMatch(newTiles: Array<Tile>) {
+	doesNotMatch(newTiles: Tile[]) {
 		if (this.tiles.length === 0) { return false; }
 		return (newTiles[0].color !== this.tiles[0].color);
 	}
 
-	conflictsWithWall(newTiles: Array<Tile>, wallRow: WallRow) {
+	conflictsWithWall(newTiles: Tile[], wallRow: WallRow) {
 		const builtColors = wallRow.showBuiltTiles().map(tile => tile.color);
 		return (builtColors.includes(newTiles[0].color));
 	}
 
-	willOverflow(newTiles: Array<Tile>) {
+	willOverflow(newTiles: Tile[]) {
 		return (this.tiles.length + newTiles.length > this.maxLength)
 	}
 
