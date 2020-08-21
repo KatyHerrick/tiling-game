@@ -16,21 +16,21 @@ describe('StagingArea', function() {
   });
 
   it('adds tiles to itself given a row, tiles, and the wall', function() {
-  	const area = new StagingArea();
-  	const wall = new Wall();
-  	area.add(1, [new Tile('red'), new Tile('red')], wall);
+    const area = new StagingArea();
+    const wall = new Wall();
+    area.add([new Tile('red'), new Tile('red')], 1, wall);
     expect(area.rows[1].tiles.length).toBe(2);
   });
 
   it('can reset all rows', function() {
-  	const area = new StagingArea();
-  	const wall = new Wall();
-  	area.add(0, [new Tile('blue')], wall);
-  	area.add(1, [new Tile('red'), new Tile('red')], wall);
-  	area.reset();
-  	for (let row of area.rows) {
+    const area = new StagingArea();
+    const wall = new Wall();
+    area.add([new Tile('blue')], 0, wall);
+    area.add([new Tile('red'), new Tile('red')], 1, wall);
+    area.reset();
+    for (let row of area.rows) {
     	expect(row.tiles.length).toBe(0);
-  	}
+    }
   });
 });
 

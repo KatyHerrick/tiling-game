@@ -17,7 +17,7 @@ class StagingArea {
 	}
 
 	// TODO: Capture invalid responses from StagingAreaRow
-	add(rowIndex: number, tiles: Array<Tile>, wall: Wall) {
+	add(tiles: Array<Tile>, rowIndex: number, wall: Wall) {
 		this.rows[rowIndex].add(tiles, wall.rows[rowIndex]);
 	}
 

@@ -31,7 +31,7 @@ class GameTiles {
 	discard(tiles: Array<Tile>) {
 		this.discarded.push(...tiles);
 	}
-	
+
 	reshuffleDiscarded() {
 		this.inBag.push(...shuffle(this.discarded));
 	};

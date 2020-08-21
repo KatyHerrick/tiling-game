@@ -24,7 +24,7 @@ class PlayerBoard {
 	}
 
 	moveToStagingArea(tiles: Array<Tile>, row: number) {
-		this.stagingArea.add(row, tiles, this.wall);
+		this.stagingArea.add(tiles, row, this.wall);
 	}
 }
 
