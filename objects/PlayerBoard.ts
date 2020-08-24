@@ -32,13 +32,80 @@ class PlayerBoard {
 		return usedTiles;
 	}
 
-	// TODO: Refactor so rowNum isn't passed around
 	buildTile(row: StagingAreaRow, rowNum: number) {
-		this.wall.build(rowNum, row.tiles[0].color);
+		const color = row.tiles[0].color;
+		this.wall.build(rowNum, color);
+		this.addPoints(rowNum, color);
 		const usedTiles = row.tiles;
 		row.reset();
 
 		return usedTiles;
+	}
+
+	addPoints(rowIndex: number, color: string) {
+		const colIndex = this.wall.rows[rowIndex].tiles
+		.map(tile => tile.color).indexOf(color);
+
+		const rowPoints = this.countRowPoints(rowIndex, colIndex);
+		const colPoints = this.countColPoints(rowIndex, colIndex);
+		const points = this.addRowAndColPoints(rowPoints, colPoints);
+		this.points += points;
+	}
+
+	countRowPoints(rowIndex: number, colIndex: number) {
+		const builtRowTiles = this.wall.rows[rowIndex].tiles
+			.map(tile => tile.isBuilt);
+
+		const points = this.countLeft(colIndex, builtRowTiles)
+			+ this.countRight(colIndex, builtRowTiles);
+
+		// Return 0 because an independent tile in a row counts
+		// only if it is independent in both axes
+		if (points === 1) { return 0 }
+
+		return points;
+	}
+
+	countColPoints(rowIndex: number, colIndex: number) {
+		const builtColTiles = this.wall.rows
+			.map(row => row.tiles[colIndex].isBuilt);
+
+		const points = this.countLeft(rowIndex, builtColTiles)
+			+ this.countRight(rowIndex, builtColTiles);
+
+		// Return 0 because an independent tile in a col counts
+		// only if it is independent in both axes
+		if (points === 1) { return 0 }
+
+		return points;
+	}
+
+	countLeft(newTileIndex: number, builtWallTiles: boolean[]) {
+		let points = 0;
+		for (let i = newTileIndex; i >= 0; i--) {
+			if (builtWallTiles[i]) {
+				points += 1;
+			}
+		}
+		return points;
+	}
+
+	countRight(newTileIndex: number, builtWallTiles: boolean[]) {
+		let points = 0;
+		for (let i = newTileIndex + 1; i <= 4; i++) {
+			if (builtWallTiles[i]) {
+				points += 1;
+			}
+		}
+		return points;
+	}
+
+	addRowAndColPoints(rowPoints: number, colPoints: number) {
+		const points = rowPoints + colPoints;
+		if (points === 0) {
+			return 1;
+		}
+		return points;
 	}
 
 }
