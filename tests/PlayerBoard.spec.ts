@@ -1,4 +1,3 @@
-import { FactoryDisplay, TableCenter } from '../objects/FactoryDisplay';
 import { PlayerBoard } from '../objects/PlayerBoard';
 import { Tile } from '../objects/GameTiles';
 
@@ -17,31 +16,13 @@ describe('PlayerBoard', () => {
 		expect(player.points).toBe(0);
 	});
 
-	it('can take tiles given a display and color', () => {
+	it('can place tiles in the staging area', () => {
 		const player = new PlayerBoard();
-		const display = new FactoryDisplay();
-		const tilesToDeal = [
+		const chosenTiles = [
 			new Tile('red'),
 			new Tile('red'),
 			new Tile('red'),
-			new Tile('yellow')
 		];
-		display.deal(tilesToDeal);
-		const chosenTiles = player.takeFromDisplay(display, 'red');
-		expect(chosenTiles.length).toBe(3);
-	});
-
-	it('can move tiles from a display to the staging area', () => {
-		const player = new PlayerBoard();
-		const display = new FactoryDisplay();
-		const tilesToDeal = [
-			new Tile('red'),
-			new Tile('red'),
-			new Tile('red'),
-			new Tile('yellow')
-		];
-		display.deal(tilesToDeal);
-		const chosenTiles = player.takeFromDisplay(display, 'red');
 		player.moveToStagingArea(chosenTiles, 2);
 		expect(player.stagingArea.rows[2].tiles.length).toBe(3);
 	});

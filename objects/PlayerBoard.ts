@@ -1,4 +1,3 @@
-import { FactoryDisplay, TableCenter } from '../objects/FactoryDisplay';
 import { FloorLine } from './FloorLine';
 import { StagingArea } from './StagingArea';
 import { Tile } from './GameTiles';
@@ -16,11 +15,6 @@ class PlayerBoard {
 		this.wall = new Wall();
 		this.floor = new FloorLine();
 		this.points = 0;
-	}
-
-	takeFromDisplay(display: FactoryDisplay, color: string) {
-		const [forPlayer] = display.chooseTiles(color);
-		return forPlayer;
 	}
 
 	moveToStagingArea(tiles: Tile[], row: number) {
