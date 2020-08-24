@@ -83,22 +83,6 @@ describe('GameSetup', () => {
 		expect(game.players[0].stagingArea.rows[rowIndex].tiles.length).toBe(3);
 	});
 
-	it('performs the build phase for one player', () => {
-		const game = new Game(2);
-		// TODO: Test this in a better/safer way
-		const chosenTiles = [
-			new Tile('red'),
-			new Tile('red'),
-			new Tile('red'),
-		];
-		const rowIndex = 2;
-		game.doPlayerPlace(0, chosenTiles, rowIndex);
-		game.doBuildPhase();
-		expect(game.players[0].wall.rows[rowIndex].tiles
-			.filter(tile => tile.isBuilt).length).toBe(1);
-	});
-
-
 	it('performs the build phase for all players', () => {
 		const game = new Game(4);
 		// TODO: Test this in a better/safer way
@@ -114,12 +98,30 @@ describe('GameSetup', () => {
 		const rowIndexBlue = 0;
 		game.doPlayerPlace(0, redTiles, rowIndexRed);
 		game.doPlayerPlace(1, blueTiles, rowIndexBlue);
-		game.doBuildPhase();
+		game.finishRound();
 		expect(game.players[0].wall.rows[rowIndexRed].tiles
 			.filter(tile => tile.isBuilt).length).toBe(1);
 		expect(game.players[1].wall.rows[rowIndexBlue].tiles
 			.filter(tile => tile.isBuilt).length).toBe(1);
+	});
 
+	it('discards used tiles as wall tiles are built', () => {
+		const game = new Game(4);
+		// TODO: Test this in a better/safer way
+		const redTiles = [
+			new Tile('red'),
+			new Tile('red'),
+			new Tile('red'),
+		];
+		const blueTiles = [
+			new Tile('blue'),
+		];
+		const rowIndexRed = 2;
+		const rowIndexBlue = 0;
+		game.doPlayerPlace(0, redTiles, rowIndexRed);
+		game.doPlayerPlace(1, blueTiles, rowIndexBlue);
+		game.finishRound();
+		expect(game.gameTiles.discarded.length).toBe(4);
 	});
 
 });

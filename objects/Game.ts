@@ -52,23 +52,11 @@ class Game {
 		player.moveToStagingArea(tiles, row);
 	}
 
-	doBuildPhase() {
+	finishRound() {
 		for (const player of this.players) {
-			for (let rowNum = 0; rowNum < 5; rowNum++) {
-				const row = player.stagingArea.rows[rowNum];
-				if (row.tiles.length === row.maxLength) {
-					this.buildTile(player, row, rowNum);
-					// TODO: Logic to count up points
-				}
-			}
+			const usedTiles = player.buildAll();
+			this.gameTiles.discard(usedTiles);
 		}
-	}
-
-	// TODO: Refactor so rowNum isn't passed around
-	buildTile(player: PlayerBoard, row: StagingAreaRow, rowNum: number) {
-		player.wall.build(rowNum, row.tiles[0].color);
-		this.gameTiles.discard(row.tiles);
-		row.reset();
 	}
 
 }
