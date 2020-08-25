@@ -1,4 +1,4 @@
-import { Tile, GameTiles } from '../objects/GameTiles';
+import { Tile, GameTiles } from 'src/objects/GameTiles';
 
 describe('Tile', () => {
 	it('has a color', () => {

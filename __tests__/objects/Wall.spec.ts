@@ -1,4 +1,4 @@
-import { Wall, WallRow, WallTile, FIRST_ROW_PATTERN } from '../objects/Wall';
+import { Wall, WallRow, WallTile, FIRST_ROW_PATTERN } from 'src/objects/Wall';
 
 describe('Wall', () => {
 	it('has 5 rows', () => {

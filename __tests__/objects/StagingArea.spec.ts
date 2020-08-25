@@ -1,6 +1,6 @@
-import { StagingArea, StagingAreaRow } from '../objects/StagingArea';
-import { Tile } from '../objects/GameTiles';
-import { Wall, WallRow, FIRST_ROW_PATTERN } from '../objects/Wall';
+import { StagingArea, StagingAreaRow } from 'src/objects/StagingArea';
+import { Tile } from 'src/objects/GameTiles';
+import { Wall, WallRow, FIRST_ROW_PATTERN } from 'src/objects/Wall';
 
 describe('StagingArea', () => {
 	it('initializes 5 rows', () => {

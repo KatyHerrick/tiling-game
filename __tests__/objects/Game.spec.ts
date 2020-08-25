@@ -1,6 +1,6 @@
-import { Game } from '../objects/Game';
-import { PlayerBoard } from '../objects/PlayerBoard';
-import { Tile } from '../objects/GameTiles';
+import { Game } from 'src/objects/Game';
+import { PlayerBoard } from 'src/objects/PlayerBoard';
+import { Tile } from 'src/objects/GameTiles';
 
 describe('GameSetup', () => {
 	it('initializes the correct number of players', () => {

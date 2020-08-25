@@ -1,5 +1,5 @@
-import { PlayerBoard } from '../objects/PlayerBoard';
-import { Tile } from '../objects/GameTiles';
+import { PlayerBoard } from 'src/objects/PlayerBoard';
+import { Tile } from 'src/objects/GameTiles';
 
 // TODO: Remove setup redundancy
 describe('PlayerBoard', () => {

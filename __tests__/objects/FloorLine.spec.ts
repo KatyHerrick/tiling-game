@@ -1,5 +1,5 @@
-import { FloorLine } from '../objects/FloorLine';
-import { Tile } from '../objects/GameTiles';
+import { FloorLine } from 'src/objects/FloorLine';
+import { Tile } from 'src/objects/GameTiles';
 
 describe('FloorLine', () => {
 	it('initializes with no tiles', () => {

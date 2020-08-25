@@ -1,5 +1,5 @@
-import { FactoryDisplay, TableCenter } from '../objects/FactoryDisplay';
-import { Tile } from '../objects/GameTiles';
+import { FactoryDisplay, TableCenter } from 'src/objects/FactoryDisplay';
+import { Tile } from 'src/objects/GameTiles';
 
 describe('FactoryDisplay', () => {
 	it('is initialized empty', () => {
