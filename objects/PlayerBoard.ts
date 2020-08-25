@@ -57,7 +57,7 @@ class PlayerBoard {
 			.map(tile => tile.isBuilt);
 
 		const points = this.countLeft(colIndex, builtRowTiles)
-			+ this.countRight(colIndex, builtRowTiles);
+			+ this.countRight(colIndex + 1, builtRowTiles);
 
 		// Return 0 because an independent tile in a row counts
 		// only if it is independent in both axes
@@ -71,7 +71,7 @@ class PlayerBoard {
 			.map(row => row.tiles[colIndex].isBuilt);
 
 		const points = this.countLeft(rowIndex, builtColTiles)
-			+ this.countRight(rowIndex, builtColTiles);
+			+ this.countRight(rowIndex + 1, builtColTiles);
 
 		// Return 0 because an independent tile in a col counts
 		// only if it is independent in both axes
@@ -80,22 +80,20 @@ class PlayerBoard {
 		return points;
 	}
 
-	countLeft(newTileIndex: number, builtWallTiles: boolean[]) {
+	countLeft(i: number, builtWallTiles: boolean[]) {
 		let points = 0;
-		for (let i = newTileIndex; i >= 0; i--) {
-			if (builtWallTiles[i]) {
-				points += 1;
-			}
+		while (i >= 0 && builtWallTiles[i]) {
+			points += 1;
+			i--;
 		}
 		return points;
 	}
 
-	countRight(newTileIndex: number, builtWallTiles: boolean[]) {
+	countRight(i: number, builtWallTiles: boolean[]) {
 		let points = 0;
-		for (let i = newTileIndex + 1; i <= 4; i++) {
-			if (builtWallTiles[i]) {
-				points += 1;
-			}
+		while (i <= 4 && builtWallTiles[i]) {
+			points += 1;
+			i++;
 		}
 		return points;
 	}

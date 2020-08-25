@@ -96,7 +96,7 @@ describe('PlayerBoard point counting', () => {
 		expect(colPoints).toBe(2);
 	});
 
-	it('calculates the correct points when building a tile', () => {
+	it('calculates the correct points when building touching tiles', () => {
 		const player = new PlayerBoard();
 		player.wall.build(0, 'yellow');
 		player.wall.build(0, 'red');
@@ -104,6 +104,15 @@ describe('PlayerBoard point counting', () => {
 		player.wall.build(1, 'yellow');
 		player.addPoints(1, 'yellow'); // new tile is at [1][2]
 		expect(player.points).toBe(4);
+	});
+
+	it('calculates the correct points when building an individual tile', () => {
+		const player = new PlayerBoard();
+		player.wall.build(0, 'yellow');
+		player.wall.build(0, 'red');
+		player.wall.build(0, 'white');
+		player.addPoints(0, 'white'); // new tile is at [0][4]
+		expect(player.points).toBe(1);
 	});
 
 	// TODO: Write cucumber stories to test different permutations
