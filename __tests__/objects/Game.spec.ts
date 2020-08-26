@@ -121,7 +121,42 @@ describe('GameSetup', () => {
 		game.doPlayerPlace(0, redTiles, rowIndexRed);
 		game.doPlayerPlace(1, blueTiles, rowIndexBlue);
 		game.finishRound();
-		expect(game.gameTiles.discarded.length).toBe(4);
+		expect(game.gameTiles.discarded.length).toBe(2);
+	});
+
+	it('discards used tiles from the floor line', () => {
+		const game = new Game(4);
+		// TODO: Test this in a better/safer way
+		const redTiles = [
+			new Tile('red'),
+			new Tile('red'),
+			new Tile('red'),
+		];
+		game.doPlayerPlace(0, redTiles, 0); // 2 to discard from floor
+		game.finishRound();
+		expect(game.gameTiles.discarded.length).toBe(2);
+	});
+
+	it('discards used tiles from the floor line and wall', () => {
+		const game = new Game(4);
+		// TODO: Test this in a better/safer way
+		const redTiles = [
+			new Tile('red'),
+			new Tile('red'),
+			new Tile('red'),
+		];
+		const moreRedTiles = [
+			new Tile('red'),
+			new Tile('red')
+		];
+		const blueTiles = [
+			new Tile('blue'),
+		];
+		game.doPlayerPlace(0, redTiles, 0); // Row built — 2 to discard from floor
+		game.doPlayerPlace(0, moreRedTiles, 1); // Row built — 1 to discard
+		game.doPlayerPlace(1, blueTiles, 1); // No row built - 0 to discard
+		game.finishRound();
+		expect(game.gameTiles.discarded.length).toBe(3);
 	});
 
 });

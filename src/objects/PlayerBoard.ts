@@ -18,7 +18,19 @@ class PlayerBoard {
 	}
 
 	moveToStagingArea(tiles: Tile[], row: number) {
-		this.stagingArea.add(tiles, row, this.wall);
+		const excessTiles = this.stagingArea.add(tiles, row, this.wall);
+		this.floor.add(excessTiles);
+	}
+
+	clearFloorLine() {
+		this.points += this.floor.countPoints();
+		if (this.points < 0) {
+			this.points = 0;
+		}
+		const usedTiles = this.floor.tiles;
+		this.floor.reset();
+
+		return usedTiles;
 	}
 
 	buildAll() {
@@ -34,15 +46,19 @@ class PlayerBoard {
 
 	buildTile(row: StagingAreaRow, rowNum: number) {
 		const color = row.tiles[0].color;
+
+		// Build and remove one tile to build with
 		this.wall.build(rowNum, color);
-		this.addPoints(rowNum, color);
+		row.tiles.pop();
+		this.addBuildPoints(rowNum, color);
+
+		// Reset row and return unused tiles to game
 		const usedTiles = row.tiles;
 		row.reset();
-
 		return usedTiles;
 	}
 
-	addPoints(rowIndex: number, color: string) {
+	addBuildPoints(rowIndex: number, color: string) {
 		const colIndex = this.wall.rows[rowIndex].tiles
 		.map(tile => tile.color).indexOf(color);
 

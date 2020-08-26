@@ -54,11 +54,20 @@ describe('StagingAreaRow', () => {
 		expect(row.tiles.length).toBe(2);
 	});
 
-	it('will not add more tiles past the max length', () => {
-		const row = new StagingAreaRow(1);
+	it('will not add tiles past the max length', () => {
+		const row = new StagingAreaRow(2);
 		const wallRow = new WallRow(FIRST_ROW_PATTERN);
-		row.add([new Tile('red'), new Tile('red')], wallRow);
-		expect(row.tiles.length).toBe(0);
+		row.add([new Tile('red'), new Tile('red'), new Tile('red')], wallRow);
+		expect(row.tiles.length).toBe(2);
+	});
+
+	it('returns excess tiles to be put on the FloorLine', () => {
+		const row = new StagingAreaRow(2);
+		const wallRow = new WallRow(FIRST_ROW_PATTERN);
+		const excessTiles = row.add(
+			[new Tile('red'), new Tile('red'), new Tile('red')],
+			wallRow);
+		expect(excessTiles.length).toBe(1);
 	});
 
 	it('will not add tiles that do not match existing tiles', () => {

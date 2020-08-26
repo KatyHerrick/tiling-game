@@ -75,7 +75,7 @@ describe('PlayerBoard', () => {
 		player.moveToStagingArea(redTiles, 2);
 		player.moveToStagingArea(blueTiles, 0);
 		const usedTiles = player.buildAll();
-		expect(usedTiles.length).toBe(4);
+		expect(usedTiles.length).toBe(2);
 	});
 });
 
@@ -102,7 +102,7 @@ describe('PlayerBoard point counting', () => {
 		player.wall.build(0, 'red');
 		player.wall.build(1, 'blue');
 		player.wall.build(1, 'yellow');
-		player.addPoints(1, 'yellow'); // new tile is at [1][2]
+		player.addBuildPoints(1, 'yellow'); // new tile is at [1][2]
 		expect(player.points).toBe(4);
 	});
 
@@ -111,8 +111,23 @@ describe('PlayerBoard point counting', () => {
 		player.wall.build(0, 'yellow');
 		player.wall.build(0, 'red');
 		player.wall.build(0, 'white');
-		player.addPoints(0, 'white'); // new tile is at [0][4]
+		player.addBuildPoints(0, 'white'); // new tile is at [0][4]
 		expect(player.points).toBe(1);
+	});
+
+	it('subtracts points from the floor', () => {
+		const player = new PlayerBoard();
+		player.points = 5;
+		player.floor.add([new Tile('red'), new Tile('red'), new Tile('red')]);
+		player.clearFloorLine();
+		expect(player.points).toBe(1);
+	});
+
+	it('does not let points go below 0', () => {
+		const player = new PlayerBoard();
+		player.floor.add([new Tile('red'), new Tile('red')]);
+		player.clearFloorLine();
+		expect(player.points).toBe(0);
 	});
 
 	// TODO: Write cucumber stories to test different permutations

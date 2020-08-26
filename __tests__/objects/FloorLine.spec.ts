@@ -13,12 +13,34 @@ describe('FloorLine', () => {
 		expect(floor.tiles.length).toBe(1);
 	});
 
-	it('will only add up to 7 tiles', () => {
+	it('counts its negative point value for one tile', () => {
 		const floor = new FloorLine();
-		for (let i = 0; i < 8; i++) {
-			floor.add([new Tile('red')])
-		}
-		expect(floor.tiles.length).toBe(7);
+		floor.add([new Tile('red')])
+		const points = floor.countPoints();
+		expect(points).toBe(-1);
+	});
+
+	it('counts its negative point value for several tiles', () => {
+		const floor = new FloorLine();
+		floor.add([new Tile('red'), new Tile('blue'), new Tile('blue')]);
+		const points = floor.countPoints();
+		expect(points).toBe(-4);
+	});
+
+	it('counts its negative point value with more than 7 tiles', () => {
+		const floor = new FloorLine();
+		floor.add([
+			new Tile('red'),
+			new Tile('white'),
+			new Tile('white'),
+			new Tile('blue'),
+			new Tile('blue'),
+			new Tile('blue'),
+			new Tile('yellow'),
+			new Tile('yellow')
+			]);
+		const points = floor.countPoints();
+		expect(points).toBe(-14);
 	});
 
 	it('can reset itself', () => {

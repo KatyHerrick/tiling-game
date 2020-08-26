@@ -18,7 +18,7 @@ class StagingArea {
 
 	// TODO: Capture invalid responses from StagingAreaRow
 	add(tiles: Tile[], rowIndex: number, wall: Wall) {
-		this.rows[rowIndex].add(tiles, wall.rows[rowIndex]);
+		return this.rows[rowIndex].add(tiles, wall.rows[rowIndex]);
 	}
 
 	reset() {
@@ -40,16 +40,23 @@ class StagingAreaRow {
 
 	add(tiles: Tile[], wallRow: WallRow) {
 		if (this.willOverflow(tiles)) {
-			return 'ERROR: Overflow!'
-		}
-		if (this.doesNotMatch(tiles)) {
-			return 'ERROR: Does not match!'
-		}
-		if (this.conflictsWithWall(tiles, wallRow)) {
-			return 'ERROR: Conflicts with wall!'
+			return this.addUntilFull(tiles);
+		} else if (
+			this.doesNotMatch(tiles)
+			|| this.conflictsWithWall(tiles, wallRow)
+			) {
+			return [];
 		}
 
 		this.tiles.push(...tiles);
+		return [];
+	}
+
+	addUntilFull(tiles: Tile[]) {
+		const numExtraTiles = (this.tiles.length + tiles.length) - this.maxLength;
+		const extraTiles = tiles.splice(0, numExtraTiles);
+		this.tiles.push(...tiles);
+		return extraTiles;
 	}
 
 	doesNotMatch(newTiles: Tile[]) {

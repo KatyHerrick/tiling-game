@@ -55,7 +55,8 @@ class Game {
 	finishRound() {
 		for (const player of this.players) {
 			const usedTiles = player.buildAll();
-			this.gameTiles.discard(usedTiles);
+			const floorTiles = player.clearFloorLine();
+			this.gameTiles.discard([...usedTiles, ...floorTiles]);
 		}
 	}
 
